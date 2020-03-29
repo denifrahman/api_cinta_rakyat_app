@@ -80,7 +80,7 @@ $db['default'] = array(
     'username' => 'sesnic',
     'password' => 'sesnic252423',
     'database' => 'covid-19',
-    'port' => 8889,
+    // 'port' => 8889,
 
     // google koneksi
     // 'hostname' => 'idwebdesainer.my.id',
