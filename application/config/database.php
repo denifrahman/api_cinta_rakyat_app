@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
     'dsn' => '',
     // // lokal koneksi 
-    'hostname' => 'localhost',
-    'username' => 'root',
-    'password' => 'root',
+    'hostname' => '35.221.250.224',
+    'username' => 'sesnic',
+    'password' => 'sesnic252423',
     'database' => 'covid-19',
     'port' => 8889,
 
