@@ -109,6 +109,28 @@ class Kebutuhan_M extends CI_Model
 
         return $response;
     }
+    public function get_all_data_by_id_akun($id)
+    {
+        //Mendefinikan variabel
+        $response = array();
+        $data = $this->db->query("select * from detail_kebutuhan where m_akun_id =  '$id' order by time_insert ");
+        $num_rows = $data->num_rows();
+
+        //variabel meta berisi hasil status pengambilan
+        $response['meta'] = array(
+            "status_code" => 200,
+            "success" => true,
+        );
+        if ($num_rows > 0) {
+            $response['meta']['status_message'] = 'Pengambilan ' . $num_rows . ' Data ' . $this->menu_name . ' Berhasil';
+        } else {
+            $response['meta']['status_message'] = 'Total Data 0';
+        }
+
+        $response['data'] = $data->result();
+
+        return $response;
+    }
     public function get_all_data()
     {
         //Mendefinikan variabel

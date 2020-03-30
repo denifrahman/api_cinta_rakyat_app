@@ -58,6 +58,12 @@ class Kebutuhan extends BD_Controller
     $response = $this->Kebutuhan_M->get_all_data_by_id($id);
         $this->response($response);
     }
+    public function get_all_data_by_id_akun_get()
+    {
+        $id = $this->get('AkunId');
+    $response = $this->Kebutuhan_M->get_all_data_by_id_akun($id);
+        $this->response($response);
+    }
     public function get_all_data_get()
     {
     $response = $this->Kebutuhan_M->get_all_data();
