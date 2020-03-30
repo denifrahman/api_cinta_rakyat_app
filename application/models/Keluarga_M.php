@@ -67,8 +67,8 @@ class Keluarga_M extends CI_Model
     {
         //Mendefinikan variabel
         $response = array();
-        $this->db->where('akun_email',$objx['akun_email']);
-        $data = $this->db->update("m_akun", $objx);
+        $this->db->where('t_anggota_keluarga_id',$objx['t_anggota_keluarga_id']);
+        $data = $this->db->update("t_anggota_keluarga", $objx);
         $str = $this->db->last_query();
         if ($this->db->trans_status() !== false) {
             $response['meta'] = array(
