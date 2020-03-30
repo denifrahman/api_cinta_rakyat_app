@@ -113,7 +113,7 @@ class Kebutuhan_M extends CI_Model
     {
         //Mendefinikan variabel
         $response = array();
-        $data = $this->db->query("select * from v_detail_kebutuhan where m_akun_id =  '$id' order by time_insert ");
+        $data = $this->db->query("select * from v_detail_kebutuhan where m_akun_id =  '$id' order by time_insert DESC ");
         $num_rows = $data->num_rows();
 
         //variabel meta berisi hasil status pengambilan
