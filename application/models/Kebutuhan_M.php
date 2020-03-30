@@ -153,4 +153,29 @@ class Kebutuhan_M extends CI_Model
 
         return $response;
     }
+    public function delete_by_id($id)
+    {
+        //Mendefinikan variabel
+        $response = array();
+        $this->db->where('detail_kebutuhan_id', $id);
+        $data = $this->db->delete('detail_kebutuhan');
+        $str = $this->db->last_query();
+        if ($this->db->trans_status() !== false) {
+            $response['meta'] = array(
+                "status_code" => 200,
+                "status_message" => 'Data Berhasil Di hapus',
+                "success" => true,
+            );
+        } else {
+            $this->db->trans_rollback();
+
+            $response['meta'] = array(
+                "status_code" => 500,
+                "status_message" => 'Data Gagal di hapus',
+                "success" => false,
+            );
+        }
+        return $response;
+
+    }
 }

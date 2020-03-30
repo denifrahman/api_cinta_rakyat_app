@@ -87,7 +87,8 @@ class Kebutuhan extends BD_Controller
         $response = $this->Kebutuhan_M->ubah($objx);
         $this->response($response);
     }
-    public function delete_by_id_get($id){ 
+    public function delete_by_id_get(){ 
+        $id = $this->get('id');
         $response = $this->Kebutuhan_M->delete_by_id($id);
         $this->response($response);
     }
