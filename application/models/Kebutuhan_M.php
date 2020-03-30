@@ -41,7 +41,7 @@ class Kebutuhan_M extends CI_Model
             return $this->empty_response();
         } else {
             $this->db->trans_begin();
-            $this->db->insert('m_akun', $objx);
+            $this->db->insert('detail_kebutuhan', $objx);
             $str = $this->db->last_query();
             
             if ($this->db->trans_status() !== false) {
