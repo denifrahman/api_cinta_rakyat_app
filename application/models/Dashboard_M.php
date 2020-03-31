@@ -71,6 +71,37 @@ class Dashboard_M extends CI_Model
         return $response;
 
     }
+    public function get_pdp_per_bulan()
+    {
+
+        //Mendefinikan variabel
+        $response = array();
+
+      
+        
+        $dataPDP = $this->db->query("SELECT count(t_anggota_keluarga_id) as value, date(time_insert)as label FROM t_anggota_keluarga where t_anggota_keluarga_status = 'ODP' GROUP BY label");
+        $num_rows = $dataPDP->num_rows();
+
+        //variabel meta berisi hasil status pengambilan
+        $response['meta'] = array(
+            "status_code" => 200,
+            "success" => true,
+        );
+
+        //kondisi jika row lebih dari nol maka status message berhasil, jika tidak makan muncul total data 0
+        if ($num_rows > 0) {
+            $response['meta']['status_message'] = 'Pengambilan ' . $num_rows . ' Data ' . $this->menu_name . ' Berhasil';
+        } else {
+            $response['meta']['status_message'] = 'Total Data 0';
+        }
+
+        //variabel data berisi hasil pengambilan data dari database
+        $response['data_pdp'] = $dataPDP->result() == [] ? '{value:0,label:2020-03-17}':$dataPDP->result();
+
+        //variabel response berupa array dari data dan meta
+        return $response;
+
+    }
     public function get_pie()
     {
 
@@ -110,6 +141,10 @@ class Dashboard_M extends CI_Model
         $response['persentase_sehat'] = round($persentase_Sehat);
         $response['persentase_positif'] = round($persentase_Positif);
         $response['total'] = $total->jumlah;
+        $response['total_sehat'] = $dataSehat->jumlah;
+        $response['total_odp'] = $dataOdp->jumlah;
+        $response['total_pdp'] = $dataPdp->jumlah;
+        $response['total_positif'] = $dataPositif->jumlah;
 
         //variabel response berupa array dari data dan meta
         return $response;

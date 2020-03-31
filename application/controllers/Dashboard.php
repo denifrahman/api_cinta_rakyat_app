@@ -16,6 +16,10 @@ class Dashboard extends BD_Controller{
       $response = $this->Dashboard_M->get_odp_per_bulan();
       $this->response($response);
   }
+  public function get_pdp_per_bulan_get(){
+      $response = $this->Dashboard_M->get_pdp_per_bulan();
+      $this->response($response);
+  }
   public function get_pie_get(){
       $response = $this->Dashboard_M->get_pie();
       $this->response($response);
