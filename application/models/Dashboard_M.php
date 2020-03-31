@@ -63,9 +63,9 @@ class Dashboard_M extends CI_Model
 
         //variabel data berisi hasil pengambilan data dari database
         $response['data_sehat'] = $dataSehat->result();
-        $response['data_odp'] = $dataODP->result();
-        $response['data_pdp'] = $dataPDP->result();
-        $response['data_positif'] = $dataPositif->result();
+        $response['data_odp'] = $dataODP->result() == [] ? '{value:0,label:2020-03-17}': $dataODP->result() ;
+        $response['data_pdp'] = $dataPDP->result() == [] ? '{value:0,label:2020-03-17}':$dataPDP->result();
+        $response['data_positif'] = $dataPositif->result()== [] ? '{value:0,label:2020-03-17}':$dataPositif->result();
 
         //variabel response berupa array dari data dan meta
         return $response;
