@@ -71,6 +71,50 @@ class Dashboard_M extends CI_Model
         return $response;
 
     }
+    public function get_pie()
+    {
+
+        //Mendefinikan variabel
+        $response = array();
+
+      
+        $dataAll = $this->db->query("SELECT COUNT(t_anggota_keluarga_id)as jumlah from t_anggota_keluarga");
+        $dataSehat = $this->db->query("SELECT COUNT(t_anggota_keluarga_id)as jumlah from t_anggota_keluarga where t_anggota_keluarga_status = 'SEHAT' ")->row();
+        $dataPositif = $this->db->query("SELECT COUNT(t_anggota_keluarga_id)as jumlah from t_anggota_keluarga where t_anggota_keluarga_status = 'POSITIF' ")->row();
+        $dataOdp = $this->db->query("SELECT COUNT(t_anggota_keluarga_id)as jumlah from t_anggota_keluarga where t_anggota_keluarga_status = 'ODP' ")->row();
+        $dataPdp = $this->db->query("SELECT COUNT(t_anggota_keluarga_id)as jumlah from t_anggota_keluarga where t_anggota_keluarga_status = 'PDP' ")->row();
+        $total = $dataAll->row();
+        $persentase_Sehat = $dataSehat->jumlah / $total->jumlah * 100;
+        $persentase_Odp = $dataOdp->jumlah /  $total->jumlah * 100;
+        $persentase_Pdp = $dataPdp->jumlah / $total->jumlah * 100;
+        $persentase_Positif = $dataPositif->jumlah / $total->jumlah * 100;
+        
+        $num_rows = $dataAll->num_rows();
+
+        //variabel meta berisi hasil status pengambilan
+        $response['meta'] = array(
+            "status_code" => 200,
+            "success" => true,
+        );
+
+        //kondisi jika row lebih dari nol maka status message berhasil, jika tidak makan muncul total data 0
+        if ($num_rows > 0) {
+            $response['meta']['status_message'] = 'Pengambilan ' . $num_rows . ' Data ' . $this->menu_name . ' Berhasil';
+        } else {
+            $response['meta']['status_message'] = 'Total Data 0';
+        }
+
+        //variabel data berisi hasil pengambilan data dari database
+        $response['persentase_odp'] = round($persentase_Odp);
+        $response['persentase_pdp'] = round($persentase_Pdp);
+        $response['persentase_sehat'] = round($persentase_Sehat);
+        $response['persentase_positif'] = round($persentase_Positif);
+        $response['total'] = $total->jumlah;
+
+        //variabel response berupa array dari data dan meta
+        return $response;
+
+    }
      public function get_murid($id_guru)
     {
 
