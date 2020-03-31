@@ -35,15 +35,18 @@ class Dashboard_M extends CI_Model
     - $limit : Berupa limitasi untuk row yang diambil ( int )
     Return : Array(Array())
      */
-    public function get_SaldoById($id_guru)
+    public function get_odp_per_bulan()
     {
 
         //Mendefinikan variabel
         $response = array();
 
       
-        $data = $this->db->query("SELECT saldo from m_user where id = $id_guru");
-        $num_rows = $data->num_rows();
+        $dataSehat = $this->db->query("SELECT count(t_anggota_keluarga_id) as value, date(time_insert)as label FROM t_anggota_keluarga where t_anggota_keluarga_status = 'SEHAT' GROUP BY label");
+        $dataODP = $this->db->query("SELECT count(t_anggota_keluarga_id) as value, date(time_insert)as label FROM t_anggota_keluarga where t_anggota_keluarga_status = 'ODP' GROUP BY label");
+        $dataPDP = $this->db->query("SELECT count(t_anggota_keluarga_id) as value, date(time_insert)as label FROM t_anggota_keluarga where t_anggota_keluarga_status = 'PDP' GROUP BY label");
+        $dataPositif = $this->db->query("SELECT count(t_anggota_keluarga_id) as value, date(time_insert)as label FROM t_anggota_keluarga where t_anggota_keluarga_status = 'POSITIF' GROUP BY label");
+        $num_rows = $dataSehat->num_rows();
 
         //variabel meta berisi hasil status pengambilan
         $response['meta'] = array(
@@ -59,7 +62,10 @@ class Dashboard_M extends CI_Model
         }
 
         //variabel data berisi hasil pengambilan data dari database
-        $response['data'] = $data->row();
+        $response['data_sehat'] = $dataSehat->result();
+        $response['data_odp'] = $dataODP->result();
+        $response['data_pdp'] = $dataPDP->result();
+        $response['data_positif'] = $dataPositif->result();
 
         //variabel response berupa array dari data dan meta
         return $response;

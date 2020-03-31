@@ -12,8 +12,8 @@ class Dashboard extends BD_Controller{
     Fungsi : mengambil semua data sesuai parameter
     Return : Array(Array())
   */
-  public function getSaldoById_get($id_guru){
-      $response = $this->Dashboard_M->get_SaldoById($id_guru);
+  public function get_odp_per_bulan_get(){
+      $response = $this->Dashboard_M->get_odp_per_bulan();
       $this->response($response);
   }
   public function getMurid_get($id_guru){
