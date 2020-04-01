@@ -96,7 +96,7 @@ class Dashboard_M extends CI_Model
         }
 
         //variabel data berisi hasil pengambilan data dari database
-        $response['data_pdp'] = $dataPDP->result() == [] ? '{value:0,label:2020-03-17}':$dataPDP->result();
+        $response['data_pdp'] = $dataPDP->result();
 
         //variabel response berupa array dari data dan meta
         return $response;
