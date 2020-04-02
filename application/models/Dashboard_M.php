@@ -76,10 +76,35 @@ class Dashboard_M extends CI_Model
 
         //Mendefinikan variabel
         $response = array();
-
-      
-        
         $dataPDP = $this->db->query("SELECT count(t_anggota_keluarga_id) as value, date(time_insert)as label FROM t_anggota_keluarga where t_anggota_keluarga_status = 'ODP' GROUP BY label");
+        $num_rows = $dataPDP->num_rows();
+
+        //variabel meta berisi hasil status pengambilan
+        $response['meta'] = array(
+            "status_code" => 200,
+            "success" => true,
+        );
+
+        //kondisi jika row lebih dari nol maka status message berhasil, jika tidak makan muncul total data 0
+        if ($num_rows > 0) {
+            $response['meta']['status_message'] = 'Pengambilan ' . $num_rows . ' Data ' . $this->menu_name . ' Berhasil';
+        } else {
+            $response['meta']['status_message'] = 'Total Data 0';
+        }
+
+        //variabel data berisi hasil pengambilan data dari database
+        $response['data_pdp'] = $dataPDP->result();
+
+        //variabel response berupa array dari data dan meta
+        return $response;
+
+    }
+    public function get_per_kota()
+    {
+
+        //Mendefinikan variabel
+        $response = array();
+        $dataPDP = $this->db->query("SELECT * from v_jumlah_per_kota");
         $num_rows = $dataPDP->num_rows();
 
         //variabel meta berisi hasil status pengambilan
